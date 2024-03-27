@@ -4,7 +4,7 @@
     <title>Spring Security Example</title>
 </head>
 <body>
-<h1>User, welcome to spring boot security page!</h1>
+<h1>User, welcome!</h1>
 
 <div>
     <p>Username: <span th:text="${user.username}"></span></p>
@@ -14,7 +14,6 @@
     <p>Email: <span th:text="${user.email}"></span></p>
 </div>
 
-<!-- Logout Form -->
 <form action="#" th:action="@{/logout}" method="post">
     <input type="submit" value="Logout">
 </form>

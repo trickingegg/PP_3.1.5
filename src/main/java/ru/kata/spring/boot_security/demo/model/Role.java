@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
@@ -44,11 +45,9 @@ public class Role implements GrantedAuthority {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Role)) return false;
+        if (!(o instanceof Role role)) return false;
 
-        Role role = (Role) o;
-
-        return id != null ? id.equals(role.id) : role.id == null;
+        return Objects.equals(id, role.id);
     }
 
     @Override

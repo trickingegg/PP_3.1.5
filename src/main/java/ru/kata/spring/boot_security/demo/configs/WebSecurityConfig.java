@@ -30,12 +30,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // Используйте "**" для включения вложенных путей
+                .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .successHandler(successUserHandler)  // Использование вашего кастомного success handler
+                .successHandler(successUserHandler)
                 .permitAll()
                 .and()
                 .logout()
@@ -45,11 +45,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder()); // Использование вашего UserDetailsService и PasswordEncoder
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Бин для хэширования паролей
+        return new BCryptPasswordEncoder();
     }
 }

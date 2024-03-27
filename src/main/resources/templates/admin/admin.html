@@ -8,10 +8,8 @@
 <h1>Hello, <span th:text="${adminName}"></span>!</h1>
 <p>Welcome to your dashboard.</p>
 
-<!-- Button for User List -->
 <button onclick="location.href='/admin/userlist'" type="button">User List</button>
 
-<!-- Logout button -->
 <form action="#" th:action="@{/logout}" method="post">
     <input type="submit" value="Logout">
 </form>

@@ -30,7 +30,6 @@
         <div>
             <label for="role">Roles</label>
             <select id="role" name="role" required>
-                <!-- Предполагается, что roleList содержит все возможные роли -->
                 <option th:each="role : ${roleList}" th:value="${role.name}" th:text="${role.name}">Role Name</option>
             </select>
         </div>
