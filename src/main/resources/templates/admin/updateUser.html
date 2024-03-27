@@ -18,6 +18,12 @@
         <label for="name">Name</label>
         <input type="text" id="name" th:field="*{name}" placeholder="User's real name" required>
 
+        <label for="surname">Surname</label>
+        <input type="text" id="surname" th:field="*{surname}" placeholder="User's surname" required>
+
+        <label for="age">Age</label>
+        <input type="number" id="age" th:field="*{age}" placeholder="User's age" required min="0">
+
         <label for="email">Email</label>
         <input type="email" id="email" th:field="*{email}" placeholder="User's email" required>
 
@@ -27,7 +33,6 @@
         <div>
             <label for="roles">Roles</label>
             <select id="roles" th:field="*{roles}" multiple required>
-                <!-- Проходимся по всем ролям и отмечаем те, что есть у пользователя -->
                 <option th:each="role : ${roleList}" th:value="${role.id}" th:text="${role.name}" th:selected="${user.roles.contains(role)}">Role Name</option>
             </select>
         </div>
