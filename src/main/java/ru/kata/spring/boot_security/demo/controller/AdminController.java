@@ -47,17 +47,17 @@ public class AdminController {
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/admin/userlist";
+        return "redirect:/admin/userList";
     }
 
-    @GetMapping("/create")
-    public String getFormForCreateUser(Model model) {
+    @GetMapping("/createUser")
+    public String createUserForm(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("roleList", roleService.allRoles());
         return "admin/createUser";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createUser")
     public String createUser(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/admin/userlist";
