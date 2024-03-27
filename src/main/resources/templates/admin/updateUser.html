@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container">
+    <h2>Update User</h2>
+    <form th:action="@{/admin/updateUser}" th:object="${user}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="username">Username</label>
+        <input type="text" id="username" th:field="*{username}" placeholder="Username" required>
+
+        <label for="name">Name</label>
+        <input type="text" id="name" th:field="*{name}" placeholder="User's real name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="User's email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" th:field="*{password}" placeholder="Password" required>
+
+        <div>
+            <label for="roles">Roles</label>
+            <select id="roles" th:field="*{roles}" multiple required>
+                <!-- Проходимся по всем ролям и отмечаем те, что есть у пользователя -->
+                <option th:each="role : ${roleList}" th:value="${role.id}" th:text="${role.name}" th:selected="${user.roles.contains(role)}">Role Name</option>
+            </select>
+        </div>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+
+</body>
+</html>

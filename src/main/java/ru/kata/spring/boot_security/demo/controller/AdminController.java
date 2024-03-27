@@ -70,7 +70,7 @@ public class AdminController {
         return "admin/updateUser";
     }
 
-    @PutMapping("/update")
+    @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.update(user);
         return "redirect:/admin/userlist";

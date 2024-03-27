@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Список пользователей</title>
-    <!-- Добавьте здесь ссылки на необходимые CSS стили -->
 </head>
 <body>
 <h2>Список всех пользователей</h2>
@@ -32,7 +31,7 @@
             <span th:text="${role.name}"></span>
         </td>
         <td>
-            <a th:href="@{/admin/edit/{id}(id=${user.id})}" class="btn btn-secondary">Edit</a>
+            <a th:href="@{/admin/update/{id}(id=${user.id})}" class="btn btn-secondary">Edit</a>
         </td>
     </tr>
     </tbody>
