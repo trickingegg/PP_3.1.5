@@ -46,10 +46,10 @@ public class AdminController {
         return "admin/userList";
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/admin/userList";
+        return "redirect:/admin/userlist";
     }
 
     @GetMapping("/createUser")

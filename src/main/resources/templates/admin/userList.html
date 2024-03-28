@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Список пользователей</title>
+    <!-- Стили, скрипты и другие зависимости могут быть добавлены здесь -->
 </head>
 <body>
 <h2>Список всех пользователей</h2>
@@ -27,11 +28,15 @@
         <td th:text="${user.surname}"></td>
         <td th:text="${user.age}"></td>
         <td th:text="${user.email}"></td>
-        <td th:each="role : ${user.roles}">
+        <td th:each="role, iterStat : ${user.roles}">
             <span th:text="${role.name}"></span>
+            <th:block th:if="${iterStat.last}" th:text="${' '}" />
         </td>
         <td>
             <a th:href="@{/admin/update/{id}(id=${user.id})}" class="btn btn-secondary">Edit</a>
+            <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post" style="display: inline-block;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
         </td>
     </tr>
     </tbody>
