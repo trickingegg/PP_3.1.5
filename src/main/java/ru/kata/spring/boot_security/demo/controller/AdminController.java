@@ -30,26 +30,28 @@ public class AdminController {
     public String adminPage(Principal principal, Model model) {
         String username = principal.getName();
         User currentUser = userService.findByUsername(username);
+        List<User> users = userService.listUsers();
+        model.addAttribute("userList", users);
         if(currentUser != null) {
-            String fullName = currentUser.getName();
-            model.addAttribute("adminName", fullName);
+            model.addAttribute("admin", currentUser);
         } else {
             model.addAttribute("adminName", "Undefined");
         }
+
         return "admin/admin";
     }
 
-    @GetMapping("/userlist")
-    public String getAllUsers(Model model) {
-        List<User> users = userService.listUsers();
-        model.addAttribute("userList", users);
-        return "admin/userList";
-    }
+//    @GetMapping("/userlist")
+//    public String getAllUsers(Model model) {
+//        List<User> users = userService.listUsers();
+//        model.addAttribute("userList", users);
+//        return "admin/userList";
+//    }
 
     @PostMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/admin/userlist";
+        return "redirect:/admin";
     }
 
     @GetMapping("/createUser")
@@ -66,7 +68,7 @@ public class AdminController {
         roles.add(roleService.findByName(roleName));
         user.setRoles(roles);
         userService.add(user);
-        return "redirect:/admin/userlist";
+        return "redirect:/admin";
     }
 
     @GetMapping("/update/{id}")
@@ -79,6 +81,6 @@ public class AdminController {
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.update(user);
-        return "redirect:/admin/userlist";
+        return "redirect:/admin";
     }
 }

@@ -1,17 +1,103 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+    <style>
+        .nav-link {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1>Hello, <span th:text="${adminName}"></span>!</h1>
-<p>Welcome to your dashboard.</p>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand">Email: <span th:text="${admin.email}"></span>,
+        Role: <span th:each="role : ${admin.roles}" th:text="${role.name} + ' '"></span></a>
+    <a class="nav-link text-secondary" href="#"><h5>Logout</h5></a>
+</nav>
+<div class="container-fluid d-flex flex-column">
+    <div class="row" style="height:100vh;">
+        <div class="col-2 mt-3 pl-0 pr-0 bg-white">
+            <nav class="nav flex-column nav-pills">
+                <a class="nav-link active text-start" href="#" onclick="switchMode('admin')">Admin</a>
+                <a class="nav-link text-start" href="#" onclick="switchMode('user')">User Info</a>
+            </nav>
+        </div>
+        <div class="col mt-3">
+            <h1>Admin Panel</h1>
+            <div id="adminContent">
+                <h2>All users</h2>
+                <table class="table" th:if="${not #lists.isEmpty(userList)}">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Age</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${userList}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.name}"></td>
+                        <td th:text="${user.surname}"></td>
+                        <td th:text="${user.age}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td>
+                            <span th:each="role, iterStat : ${user.roles}" th:text="${role.name} + ((iterStat.last) ? '' : ', ')"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/update/{id}(id=${user.id})}" class="btn btn-secondary">Edit</a>
+                            <form th:action="@{/admin/delete/{id}(id=${user.id})}" method="post" style="display: inline-block;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a th:href="@{/admin/createUser}" class="btn btn-primary">Add User</a>
+            </div>
+            <div id="userContent" style="display: none;">
+                <h2>User Information Page</h2>
+                <p>Id: <span th:text="${admin.id}"></span></p>
+                <p>Name: <span th:text="${admin.name}"></span></p>
+                <p>Surname: <span th:text="${admin.surname}"></span></p>
+                <p>Age: <span th:text="${admin.age}"></span></p>
+                <p>Email: <span th:text="${admin.email}"></span></p>
+                <p>Roles: <span th:each="role : ${admin.roles}" th:text="${role.name} + ' '"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function switchMode(mode) {
+        var adminContent = document.getElementById('adminContent');
+        var userContent = document.getElementById('userContent');
+        var adminLink = document.querySelector('.nav-link[href="#"][onclick="switchMode(\'admin\')"]');
+        var userLink = document.querySelector('.nav-link[href="#"][onclick="switchMode(\'user\')"]');
 
-<button onclick="location.href='/admin/userlist'" type="button">User List</button>
-
-<form action="#" th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout">
-</form>
+        if (mode === 'admin') {
+            adminContent.style.display = 'block';
+            userContent.style.display = 'none';
+            adminLink.classList.add('active');
+            userLink.classList.remove('active');
+        } else {
+            adminContent.style.display = 'none';
+            userContent.style.display = 'block';
+            userLink.classList.add('active');
+            adminLink.classList.remove('active');
+        }
+    }
+</script>
 </body>
 </html>
