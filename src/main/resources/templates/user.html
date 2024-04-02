@@ -1,21 +1,75 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Spring Security Example</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>User, welcome!</h1>-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
 
-<!--<div>-->
-<!--    <p>Username: <span th:text="${user.username}"></span></p>-->
-<!--    <p>Name: <span th:text="${user.name}"></span></p>-->
-<!--    <p>Surname: <span th:text="${user.surname}"></span></p>-->
-<!--    <p>Age: <span th:text="${user.age}"></span></p>-->
-<!--    <p>Email: <span th:text="${user.email}"></span></p>-->
-<!--</div>-->
+    <title>User page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<!--<form action="#" th:action="@{/logout}" method="post">-->
-<!--    <input type="submit" value="Logout">-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <span th:text="${user.email}"></span> with roles: <span
+            th:each="role : ${user.roles}" th:text="${role.name }"></span></a>
+    <a class="nav-link text-secondary" href="/logout"><h5>Logout</h5></a>
+</nav>
+<div class="container-fluid d-flex flex-column">
+    <div class="row" style="height:100vh;">
+        <div class="col-2 mt-3 pl-0 pr-0 ">
+            <nav class="nav flex-column nav-pills ">
+                <a class="nav-link active" href="/user">User</a>
+            </nav>
+        </div>
+        <div class="col-md-10 mt-3 pl-3 pr-3">
+            <h1 class="text-left">
+                User information-page
+            </h1>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="users" role="tabpanel"
+                     aria-labelledby="users-tab">
+                    <div class="d-grid gap-5">
+                        <div class="p-2 bg-light border rounded-top">
+                            <h5 class="text-left">About user</h5>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-1">
+                        <div class="p-2 bg-white border rounded-bottom">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:object="${user}">
+                                    <td th:text="${user.id}"></td>
+                                    <td th:text="${user.name}"></td>
+                                    <td th:text="${user.surname}"></td>
+                                    <td th:text="${user.age}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td>
+                                    <span th:each="role : ${user.roles}"
+                                          th:text="${role.name}"></span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+</body>
+</html>

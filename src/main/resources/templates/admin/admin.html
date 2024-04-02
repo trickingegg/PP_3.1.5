@@ -18,9 +18,10 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand">Email: <span th:text="${admin.email}"></span>,
+    <a class="navbar-brand" href="#">Email:
+        <span th:text="${admin.email}"></span>,
         Role: <span th:each="role : ${admin.roles}" th:text="${role.name} + ' '"></span></a>
-    <a class="nav-link text-secondary" href="#"><h5>Logout</h5></a>
+    <a class="nav-link text-secondary" th:href="@{/logout}"><h5>Logout</h5></a>
 </nav>
 <div class="container-fluid d-flex flex-column">
     <div class="row" style="height:100vh;">
@@ -70,7 +71,7 @@
                                         <td th:text="${user.getAge()}"></td>
                                         <td th:text="${user.getEmail()}"></td>
                                         <td>
-                                            <a th:each="role : ${user.roles}" th:text="${role.toString() + ' '}"></a>
+                                            <a th:each="role : ${user.roles}" th:text="${role.name + ' '}"></a>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-info" data-toggle="modal"
@@ -206,7 +207,7 @@
                                         <span class="font-weight-bold">Password</span>
                                     </label>
                                     <input type="password" class="form-control " id="edPassword"
-                                           th:value="${user.getPassword()}" th:name="password">
+                                           th:name="password">
 
                                     <div class="form-group text-center ">
                                         <label for="edLastName">
@@ -357,7 +358,7 @@
                 <p>Surname: <span th:text="${admin.surname}"></span></p>
                 <p>Age: <span th:text="${admin.age}"></span></p>
                 <p>Email: <span th:text="${admin.email}"></span></p>
-                <p>Roles: <span th:each="role : ${admin.roles}" th:text="${role.name} + ' '"></span></p>
+                <p>Roles: <span th:each="role : ${admin.roles}" th:text="${role.name}"></span></p>
             </div>
         </div>
     </div>
