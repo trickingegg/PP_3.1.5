@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import ru.kata.spring.boot_security.demo.exceptions.DuplicateUsernameException;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
@@ -31,22 +33,16 @@ public class AdminController {
         String username = principal.getName();
         User currentUser = userService.findByUsername(username);
         List<User> users = userService.listUsers();
+        model.addAttribute("user", new User());
         model.addAttribute("userList", users);
+        model.addAttribute("roleList", roleService.allRoles());
         if(currentUser != null) {
             model.addAttribute("admin", currentUser);
         } else {
             model.addAttribute("adminName", "Undefined");
         }
-
         return "admin/admin";
     }
-
-//    @GetMapping("/userlist")
-//    public String getAllUsers(Model model) {
-//        List<User> users = userService.listUsers();
-//        model.addAttribute("userList", users);
-//        return "admin/userList";
-//    }
 
     @PostMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
@@ -54,33 +50,44 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/createUser")
-    public String createUserForm(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("roleList", roleService.allRoles());
-        return "admin/createUser";
-    }
-
     @PostMapping("/createUser")
     public String createUser(@ModelAttribute("user") User user,
-                             @RequestParam("role") String roleName) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleService.findByName(roleName));
-        user.setRoles(roles);
-        userService.add(user);
+                             @RequestParam("role") List<String> roleName,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            Set<Role> roles = new HashSet<>();
+            for (String roleNames : roleName) {
+                roles.add(roleService.findByName(roleNames));
+            }
+            user.setRoles(roles);
+            userService.add(user);
+        } catch (DuplicateUsernameException ex) {
+            redirectAttributes.addFlashAttribute("user", user);
+            redirectAttributes.addFlashAttribute("roleList", roleService.allRoles());
+            redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+            redirectAttributes.addFlashAttribute("activeTab", "addUserTab");
+            return "redirect:/admin";
+        }
         return "redirect:/admin";
     }
 
-    @GetMapping("/update/{id}")
-    public String getFormForUpdateUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findById(id));
-        model.addAttribute("roleList", roleService.allRoles());
-        return "admin/updateUser";
-    }
-
-    @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute("user") User user) {
-        userService.update(user);
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") Long id,
+                             @ModelAttribute("user") User user,
+                             @RequestParam("role") List<String> roleName,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            Set<Role> roles = new HashSet<>();
+            for (String roleNames : roleName) {
+                roles.add(roleService.findByName(roleNames));
+            }
+            user.setRoles(roles);
+            userService.update(user);
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Ошибка при обновлении пользователя: " + ex.getMessage());
+            redirectAttributes.addFlashAttribute("errorUserId", id);
+            return "redirect:/admin";
+        }
         return "redirect:/admin";
     }
 }
