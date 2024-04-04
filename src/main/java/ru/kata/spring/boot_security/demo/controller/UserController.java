@@ -19,6 +19,6 @@ public class UserController {
     public String userProfile(Model model, @AuthenticationPrincipal User activeUser) {
         System.out.println("Active user: " + activeUser);
         model.addAttribute("user", activeUser);
-        return "user";
+        return "userInfo";
     }
 }
