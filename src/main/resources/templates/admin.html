@@ -283,102 +283,14 @@
                     </div>
                 </div>
             </div>
-
-            <!--User's content-->
-            <!--            <div id="userContent" style="display: none;">-->
-            <!--                <h2>User Information Page</h2>-->
-            <!--                <p>Id: <span th:text="${admin.id}"></span></p>-->
-            <!--                <p>Name: <span th:text="${admin.name}"></span></p>-->
-            <!--                <p>Surname: <span th:text="${admin.surname}"></span></p>-->
-            <!--                <p>Age: <span th:text="${admin.age}"></span></p>-->
-            <!--                <p>Email: <span th:text="${admin.email}"></span></p>-->
-            <!--                <p>Roles: <span th:each="role : ${admin.roles}" th:text="${role.name}"></span></p>-->
-            <!--            </div>-->
         </div>
     </div>
 </div>
-<!--<script>-->
-<!--    $(document).ready(function() {-->
-<!--        var errorUserId = [[${errorUserId}]];-->
-<!--        if(errorUserId) {-->
-<!--            $('#editUser' + errorUserId).modal('show');-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
-<!--<script th:inline="javascript">-->
-<!--    document.addEventListener("DOMContentLoaded", function() {-->
-<!--        var activeTab = [[${activeTab}]];-->
-<!--        if (activeTab === 'addUserTab') {-->
-<!--            $('#nav-profile-tab').tab('show');-->
-<!--        } else {-->
-<!--            $('#nav-home-tab').tab('show');-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
-<!--<script>-->
-<!--    function switchMode(mode) {-->
-<!--        var adminContent = document.getElementById('adminContent');-->
-<!--        var userContent = document.getElementById('userContent');-->
-<!--        var adminLink = document.querySelector('.nav-link[href="#"][onclick="switchMode(\'admin\')"]');-->
-<!--        var userLink = document.querySelector('.nav-link[href="#"][onclick="switchMode(\'user\')"]');-->
-
-<!--        if (mode === 'admin') {-->
-<!--            adminContent.style.display = 'block';-->
-<!--            userContent.style.display = 'none';-->
-<!--            adminLink.classList.add('active');-->
-<!--            userLink.classList.remove('active');-->
-<!--        } else {-->
-<!--            adminContent.style.display = 'none';-->
-<!--            userContent.style.display = 'block';-->
-<!--            userLink.classList.add('active');-->
-<!--            adminLink.classList.remove('active');-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
-
-<!--<script>-->
-<!--    // $(document).ready(function() {-->
-<!--    //     // Функция для получения и отображения пользователей-->
-<!--    //     function fetchUsers() {-->
-<!--    //         $.ajax({-->
-<!--    //             url: '/api/users', // Убедитесь, что этот URL соответствует пути в вашем контроллере-->
-<!--    //             type: 'GET',-->
-<!--    //             dataType: 'json',-->
-<!--    //             success: function(users) {-->
-<!--    //                 $('#tbody').empty(); // Очистка предыдущих данных-->
-<!--    //                 $.each(users, function(i, user) { // Перебор и отображение пользователей-->
-<!--    //                     var userRow = '<tr>' +-->
-<!--    //                         '<td>' + user.id + '</td>' +-->
-<!--    //                         '<td>' + user.name + '</td>' +-->
-<!--    //                         '<td>' + user.surname + '</td>' +-->
-<!--    //                         '<td>' + user.age + '</td>' +-->
-<!--    //                         '<td>' + user.email + '</td>' +-->
-<!--    //                         '<td>' + user.roles.map(role => role.name).join(', ') + '</td>' +-->
-<!--    //                         '<td>Edit</td>' + // Здесь должен быть код или кнопка для редактирования пользователя-->
-<!--    //                         '<td>Delete</td>' + // Здесь должен быть код или кнопка для удаления пользователя-->
-<!--    //                         '</tr>';-->
-<!--    //                     $('#tbody').append(userRow);-->
-<!--    //                 });-->
-<!--    //             },-->
-<!--    //             error: function() {-->
-<!--    //                 alert('Ошибка загрузки пользователей');-->
-<!--    //             }-->
-<!--    //         });-->
-<!--    //     }-->
-<!--    //-->
-<!--    //     // Вызов функции fetchUsers при первой загрузке страницы-->
-<!--    //     fetchUsers();-->
-<!--    //-->
-<!--    //     // Повторный вызов функции fetchUsers при необходимости можно организовать через дополнительные триггеры или кнопки-->
-<!--    // });-->
-<!--</script>-->
-<!--app.use(express.static('static'));-->
-<!--<script type="text/javascript" th:src="@{/adminPanel.js}"></script>-->
 <script src="/adminPanel.js"></script>
 <script src="/addRoles.js"></script>
 <script src="/createForm.js"></script>
 <script src="/deleteForm.js"></script>
 <script src="/editForm.js"></script>
-<script src="/userPage.js"></script>
+<!--<script src="/userPage.js"></script>-->
 </body>
 </html>
