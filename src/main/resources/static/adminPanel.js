@@ -31,24 +31,33 @@ function fillPage(userData, tbody) {
              <td class="text-center">
                  <button class="btn btn-success btn-sm border rounded border-success"
                          type="button"
-                         data-bs-toggle="modal"
-                         data-bs-target="#editModal"
-                             onclick="editFormFill('${user.id}')">Edit
+                         data-toggle="modal"
+                         data-target="#editUser${user.id}"
+                         data-user-id="${user.id}">Edit
                  </button>
              </td>
              <td class="text-center">
                  <button class="btn btn-danger btn-sm border rounded border-success"
                          type="button"
-                         data-bs-toggle="modal"
-                         data-bs-target="#deleteModal"
-                         onclick="deleteForm(${user.id})">Delete
+                         data-toggle="modal"
+                         data-target="#deleteUser${user.id}"
+                         data-user-id="${user.id}">Delete
                  </button>
             </td>`;
         tbody.append(tRow);
     });
 }
-
 document.addEventListener('DOMContentLoaded', function() {
     getAdminPage();
+    tbody.addEventListener('click', function(event) {
+        if (event.target.matches('.btn-success')) {
+            const userId = event.target.getAttribute('data-user-id');
+            editFormFill(userId);
+        }
+        if (event.target.matches('.delete-close-btn')) {
+            const userId = event.target.getAttribute('data-user-id');
+            deleteForm(userId);
+        }
+    });
 });
 
