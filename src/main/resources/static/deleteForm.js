@@ -2,7 +2,7 @@ const deleteForms = document.getElementById(`deleteForms`);
 let idDeleteField, nameDeleteField, surnameDeleteField, emailDeleteField, ageDeleteField, loginDeleteField;
 
 async function deleteForm(id) {
-    const userByIdURL = '/api/users/' + id;
+    const userByIdURL = `/api/users/${id}`;
     let userResponse = await fetch(userByIdURL);
     if (userResponse.ok) {
         let user = await userResponse.json();
@@ -20,7 +20,7 @@ async function deleteForm(id) {
         if(ageDeleteField) ageDeleteField.value = user.age;
         if(loginDeleteField) loginDeleteField.value = user.username;
 
-        await deleteUser();
+        deleteUser();
 
     } else {
         alert(`HTTP Error, ${userResponse.status}`)
@@ -47,3 +47,9 @@ async function deleteUser() {
         getAdminPage();
     })
 }
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('delete-confirm-btn').addEventListener('click', function() {
+        deleteUser().catch(console.error);
+    });
+});
+

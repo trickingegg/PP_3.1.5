@@ -114,7 +114,7 @@
                                             </div>
                                             <div class="col text-center">
                                                 <button type="submit" class="btn btn-success btn-center">Add user</button>
-                                                <button type="submit" class="btn delete-close-btn btn-center">Add user</button>
+<!--                                                <button type="submit" class="btn delete-close-btn btn-center">Add user</button>-->
                                             </div>
                                         </form>
                                     </div>
@@ -232,8 +232,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-danger" th:attr="onclick=|deleteUser(${user.id})|">Delete</button>
+                            <button type="button" class="btn btn-secondary" id="delete-close-btn" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" id="delete-confirm-btn" onclick="deleteUser()">Delete user</button>
                         </div>
                     </div>
                 </div>

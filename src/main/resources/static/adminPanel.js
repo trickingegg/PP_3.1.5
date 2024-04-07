@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target.matches('.btn-success')) {
             const userId = event.target.getAttribute('data-user-id');
             editFormFill(userId);
-        }
-        if (event.target.matches('.delete-close-btn')) {
+        } else if (event.target.matches('.btn-danger')) {
             const userId = event.target.getAttribute('data-user-id');
             deleteForm(userId);
         }
+
     });
 });
 
